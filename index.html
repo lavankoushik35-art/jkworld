@@ -3,555 +3,97 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#070a11">
-<title>JKWORLD | Command Coding</title>
-
-<style>
-:root {
-  --bg: #070a11;
-  --panel: #101827;
-  --green: #39f5a5;
-  --cyan: #65d9ff;
-  --text: #edf4ff;
-  --muted: #8999b2;
-}
-* { box-sizing: border-box; }
-
-body {
-  margin: 0;
-  min-height: 100vh;
-  color: var(--text);
-  font-family: Arial, sans-serif;
-  background:
-    radial-gradient(ellipse at top, #15314a, transparent 60%),
-    var(--bg);
-}
-
-body:before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  opacity: .12;
-  background-image:
-    linear-gradient(#65d9ff22 1px, transparent 1px),
-    linear-gradient(90deg, #65d9ff22 1px, transparent 1px);
-  background-size: 32px 32px;
-}
-
-#loading {
-  min-height: 100vh;
-  display: grid;
-  place-items: center;
-  text-align: center;
-  padding: 20px;
-}
-
-.loader-logo {
-  width: 85px;
-  height: 85px;
-  margin: auto auto 20px;
-  display: grid;
-  place-items: center;
-  border-radius: 25px;
-  font-size: 28px;
-  font-weight: 900;
-  color: #071018;
-  background: linear-gradient(135deg, var(--cyan), var(--green));
-  box-shadow: 0 0 45px #39f5a544;
-  animation: float 1.5s infinite alternate;
-}
-
-h1 {
-  letter-spacing: 5px;
-}
-
-.track {
-  max-width: 330px;
-  height: 5px;
-  margin: 25px auto;
-  overflow: hidden;
-  background: #1b2638;
-  border-radius: 20px;
-}
-
-.track span {
-  display: block;
-  height: 100%;
-  background: linear-gradient(90deg, var(--cyan), var(--green));
-  animation: load 2s forwards;
-}
-
-@keyframes load { to { width: 100%; } }
-@keyframes float {
-  to { transform: translateY(-7px) rotate(3deg); }
-}
-
-.hidden { display: none !important; }
-
-main {
-  max-width: 1000px;
-  margin: auto;
-  padding: 20px 15px 85px;
-  animation: appear .5s ease;
-}
-
-@keyframes appear {
-  from { opacity: 0; transform: translateY(12px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 12px;
-  border-bottom: 1px solid #263249;
-  padding-bottom: 18px;
-}
-
-.brand {
-  font-size: 22px;
-  font-weight: 900;
-  letter-spacing: 3px;
-}
-
-.status {
-  color: var(--green);
-  font-size: 11px;
-  border: 1px solid #285440;
-  border-radius: 30px;
-  padding: 9px 12px;
-}
-
-.hero { padding: 25px 0; }
-
-.eyebrow {
-  color: var(--green);
-  letter-spacing: 2px;
-  font-size: 11px;
-}
-
-.hero h2 { font-size: clamp(28px, 6vw, 43px); margin-bottom: 8px; }
-.hero p { color: var(--muted); line-height: 1.6; }
-
-.layout {
-  display: grid;
-  grid-template-columns: 260px 1fr;
-  gap: 15px;
-}
-
-.panel {
-  min-width: 0;
-  border: 1px solid #263249;
-  border-radius: 17px;
-  background: #0d1421ee;
-  overflow: hidden;
-  box-shadow: 0 18px 50px #0004;
-}
-
-.panel-title {
-  padding: 16px;
-  font-size: 12px;
-  font-weight: bold;
-  letter-spacing: 1.5px;
-  border-bottom: 1px solid #263249;
-}
-
-.commands { padding: 9px; }
-
-.cmd {
-  padding: 11px 8px;
-  margin: 3px 0;
-  border-radius: 8px;
-  color: #a9b8cf;
-  font: 11px monospace;
-  overflow-wrap: anywhere;
-}
-
-.cmd.active {
-  background: #10271f;
-  color: var(--green);
-}
-
-.cmd.done { color: var(--green); }
-
-.terminal-head {
-  background: #080d16;
-  padding: 14px;
-  border-bottom: 1px solid #263249;
-  color: var(--muted);
-  font-size: 11px;
-}
-
-.terminal {
-  min-height: 280px;
-  max-height: 430px;
-  overflow-y: auto;
-  padding: 17px;
-  font: 12px/1.8 monospace;
-  overflow-wrap: anywhere;
-}
-
-.line { margin-bottom: 5px; }
-.echo { color: var(--cyan); }
-.success { color: var(--green); }
-.warning { color: #ffc76b; }
-.muted { color: var(--muted); }
-
-form {
-  display: flex;
-  gap: 8px;
-  padding: 12px;
-  border-top: 1px solid #263249;
-  background: #080d16;
-}
-
-.prompt {
-  color: var(--green);
-  align-self: center;
-  font-family: monospace;
-}
-
-input {
-  width: 100%;
-  min-width: 0;
-  background: #111b2b;
-  color: white;
-  border: 1px solid #30415a;
-  border-radius: 9px;
-  padding: 13px 10px;
-  font: 12px monospace;
-  outline: none;
-}
-
-input:focus { border-color: var(--green); }
-
-button {
-  border: 0;
-  border-radius: 9px;
-  padding: 12px 15px;
-  font-weight: bold;
-  cursor: pointer;
-  color: #061018;
-  background: linear-gradient(135deg, var(--cyan), var(--green));
-  transition: .2s;
-}
-
-button:hover { transform: translateY(-2px); filter: brightness(1.1); }
-
-.key-area {
-  padding: 16px;
-  border-top: 1px solid #263249;
-}
-
-.key-display {
-  margin-top: 12px;
-  padding: 13px;
-  border: 1px dashed var(--green);
-  color: var(--green);
-  border-radius: 9px;
-  overflow-wrap: anywhere;
-  font-family: monospace;
-}
-
-footer {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  padding: 13px;
-  text-align: center;
-  color: #8494ad;
-  background: #070a11ed;
-  border-top: 1px solid #263249;
-  font-size: 10px;
-  letter-spacing: 2px;
-}
-
-footer strong { color: var(--green); }
-
-@media(max-width: 700px) {
-  .layout { grid-template-columns: 1fr; }
-  .commands {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-  }
-  .hero { padding: 18px 0; }
-  .terminal { min-height: 240px; }
-}
-</style>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#070a10">
+<title>JKWORLD | Premium Terminal</title>
+<link rel="stylesheet" href="style.css">
+<script src="script.js" defer></script>
 </head>
-
 <body>
+<div class="orb orb1"></div>
+<div class="orb orb2"></div>
 
-<section id="loading">
-  <div>
-    <div class="loader-logo">JK</div>
-    <h1>JKWORLD</h1>
-    <p style="color:#8999b2;letter-spacing:2px">
-      COMMAND CODING ENVIRONMENT
-    </p>
-    <div class="track"><span></span></div>
-    <small style="color:#8999b2">INITIALIZING SYSTEM...</small>
-  </div>
+<section id="loader" class="loader">
+  <div class="logo">JK<span>.</span></div>
+  <p class="eyebrow">TEAM LVN PRESENTS</p>
+  <h1>JKWORLD</h1>
+  <p class="sub">COMMAND CODING ENVIRONMENT</p>
+  <div class="loadbar"><span></span></div>
+  <p class="muted">INITIALIZING SYSTEM...</p>
 </section>
 
-<main id="app" class="hidden">
-  <header>
-    <div class="brand">⚡ JKWORLD</div>
-    <div class="status">● SYSTEM READY</div>
+<main id="app" class="app hidden">
+  <header class="topbar">
+    <div class="brand">
+      <div class="mini-logo">JK<span>.</span></div>
+      <div><strong>JKWORLD</strong><small>COMMAND ENVIRONMENT</small></div>
+    </div>
+    <div class="status"><i></i> SYSTEM READY</div>
   </header>
 
   <section class="hero">
-    <div class="eyebrow">YOUR COMMANDS. YOUR FLOW.</div>
-    <h2>Command Coding<span style="color:#39f5a5">_</span></h2>
-    <p>
-      Enter your commands in the exact order shown.
-      This website simulates the responses in your browser.
-    </p>
+    <p class="eyebrow">YOUR COMMANDS. YOUR FLOW.</p>
+    <h2>Enter the <span>command zone.</span></h2>
+    <p>Follow your command sequence in the exact order shown.</p>
+    <div class="tags"><span>● LOCAL SIMULATOR</span><span>08 COMMANDS</span><span>TEAM LVN</span></div>
   </section>
 
-  <div class="layout">
-    <section class="panel">
-      <div class="panel-title">COMMAND LIST — 08</div>
-      <div class="commands" id="commands"></div>
-    </section>
+  <section class="layout">
+    <aside class="panel">
+      <div class="panel-heading">
+        <div><small>DIRECTORY</small><h3>Command list</h3></div>
+        <span id="counter">00 / 08</span>
+      </div>
+      <div class="progress"><span id="progress"></span></div>
+      <div id="commands" class="commands"></div>
+      <div class="hint">ⓘ Enter each command exactly as shown.</div>
+    </aside>
 
-    <section class="panel">
-      <div class="terminal-head">● ● ● &nbsp; JKWORLD TERMINAL</div>
+    <section class="panel terminal-panel">
+      <div class="terminal-head">
+        <div class="dots"><i></i><i></i><i></i></div>
+        <span>⌘ JKWORLD / TERMINAL</span>
+        <small>● ONLINE</small>
+      </div>
+      <div class="session">
+        <div><small>SESSION</small><b>JKW-LOCAL-01</b></div>
+        <div><small>MODE</small><b>SIMULATOR</b></div>
+      </div>
 
-      <div class="terminal" id="terminal" aria-live="polite">
-        <div class="line muted">
-          Terminal initialized. Enter your first command.
+      <div id="output" class="output" aria-live="polite">
+        <div class="welcome">
+          <b>›_ Terminal initialized</b>
+          <p>Welcome to JKWORLD. Enter command 1 to begin.</p>
         </div>
       </div>
 
-      <form id="commandForm">
-        <span class="prompt">&gt;_</span>
-        <input id="commandInput" autocomplete="off"
-          spellcheck="false" placeholder="Enter command 1..."
-          aria-label="Command">
-        <button type="submit">ENTER</button>
+      <form id="commandForm" class="input-row">
+        <label for="commandInput">JK<span>›</span></label>
+        <input id="commandInput" autocomplete="off" spellcheck="false"
+          placeholder="Enter command 1..." aria-label="Enter command">
+        <button id="executeButton" type="submit">EXECUTE ↗</button>
       </form>
 
+      <div class="terminal-foot"><span>● Input listener active</span><span>ENTER TO EXECUTE</span></div>
+
       <div id="keyArea" class="key-area hidden">
-        <div class="muted" style="font-size:11px;margin-bottom:12px">
-          JK.HC ACCESS KEY
+        <small>JK.HC MODULE</small>
+        <h3>Access key generator</h3>
+        <p>Generate a random demonstration key to continue.</p>
+        <button id="generateKey" type="button" class="generate">✦ GENERATE ACCESS KEY</button>
+        <div id="keyBox" class="key-box hidden">
+          <small>GENERATED DEMO KEY</small>
+          <strong id="keyValue"></strong>
+          <button id="copyKey" type="button" class="copy">COPY</button>
         </div>
-        <button type="button" id="keyButton">
-          GENERATE KEY
-        </button>
-        <div id="keyDisplay" class="key-display hidden"></div>
       </div>
     </section>
-  </div>
+  </section>
+
+  <p class="bottom-note">✦ A COMMAND-DRIVEN EXPERIENCE ✦</p>
 </main>
 
 <footer>THIS SITE MADE BY <strong>TEAM LVN</strong></footer>
-
-<script>
-const commandList = [
-  "pkg install python",
-  "apt update",
-  "apt upgrade",
-  "jk.hc",
-  "run",
-  "/openmainpage",
-  "/help",
-  "/ctn"
-];
-
-let step = 0;
-let keyGenerated = false;
-let activated = false;
-let accessKey = "";
-let audioContext;
-
-const $ = id => document.getElementById(id);
-
-function playSound(success = false) {
-  try {
-    audioContext = audioContext ||
-      new (window.AudioContext || window.webkitAudioContext)();
-
-    if (audioContext.state === "suspended") audioContext.resume();
-
-    const oscillator = audioContext.createOscillator();
-    const gain = audioContext.createGain();
-
-    oscillator.connect(gain);
-    gain.connect(audioContext.destination);
-
-    const now = audioContext.currentTime;
-    oscillator.type = "sine";
-    oscillator.frequency.setValueAtTime(success ? 650 : 400, now);
-
-    if (success) {
-      oscillator.frequency.exponentialRampToValueAtTime(950, now + 0.12);
-    }
-
-    gain.gain.setValueAtTime(0.0001, now);
-    gain.gain.exponentialRampToValueAtTime(0.04, now + 0.02);
-    gain.gain.exponentialRampToValueAtTime(0.0001, now + 0.17);
-
-    oscillator.start(now);
-    oscillator.stop(now + 0.18);
-  } catch (error) {
-    // Audio may be unavailable in some browsers.
-  }
-}
-
-function printLine(message, type = "") {
-  const line = document.createElement("div");
-  line.className = "line " + type;
-  line.textContent = message;
-  $("terminal").appendChild(line);
-  $("terminal").scrollTop = $("terminal").scrollHeight;
-}
-
-function drawCommands() {
-  $("commands").replaceChildren();
-
-  commandList.forEach((command, index) => {
-    const item = document.createElement("div");
-    item.className = "cmd";
-
-    if (index < step) item.classList.add("done");
-    if (index === step) item.classList.add("active");
-
-    item.textContent =
-      String(index + 1).padStart(2, "0") + "  " + command;
-
-    $("commands").appendChild(item);
-  });
-
-  $("commandInput").placeholder =
-    step < 8 ? "Enter command " + (step + 1) + "..." :
-    "Sequence complete";
-
-  $("commandInput").disabled = step >= 8;
-  $("commandForm").querySelector("button").disabled = step >= 8;
-}
-
-function makeRandomKey() {
-  let digits = "";
-  let letters = "";
-
-  for (let i = 0; i < 10; i++) {
-    digits += Math.floor(Math.random() * 10);
-  }
-
-  for (let i = 0; i < 3; i++) {
-    letters += String.fromCharCode(65 + Math.floor(Math.random() * 26));
-  }
-
-  return digits + "-" + letters;
-}
-
-function handleCommand(raw) {
-  const input = raw.trim();
-  if (!input) return;
-
-  printLine("> " + input, "echo");
-  playSound();
-
-  if (step >= 8) {
-    printLine("All eight commands are complete.", "muted");
-    return;
-  }
-
-  if (input !== commandList[step]) {
-    printLine("Wrong command. Enter: " + commandList[step], "warning");
-    return;
-  }
-
-  // Command 1
-  if (step === 0) {
-    printLine("Python installed successfully. (SIMULATED)", "success");
-  }
-
-  // Command 2
-  else if (step === 1) {
-    printLine("apt updated. (SIMULATED)", "success");
-  }
-
-  // Command 3
-  else if (step === 2) {
-    printLine("apt upgraded. (SIMULATED)", "success");
-  }
-
-  // Command 4
-  else if (step === 3) {
-    printLine("JK.HC accepted. Generate your key below.", "success");
-    $("keyArea").classList.remove("hidden");
-  }
-
-  // Command 5
-  else if (step === 4) {
-    if (!keyGenerated) {
-      printLine("Please click GENERATE KEY before entering run.", "warning");
-      return;
-    }
-
-    activated = true;
-    printLine("● ACTIVATED", "success");
-  }
-
-  // Command 6
-  else if (step === 5) {
-    if (!activated) {
-      printLine("Complete the run command first.", "warning");
-      return;
-    }
-
-    printLine("/activated", "success");
-  }
-
-  // Commands 7 and 8 intentionally have no extra features.
-  else if (step === 6 || step === 7) {
-    printLine(input + " received. No additional action.", "muted");
-  }
-
-  step++;
-  drawCommands();
-  playSound(true);
-
-  if (step === 8) {
-    printLine("All eight commands completed.", "success");
-  }
-}
-
-$("commandForm").addEventListener("submit", event => {
-  event.preventDefault();
-
-  const input = $("commandInput");
-  handleCommand(input.value);
-  input.value = "";
-  input.focus();
-});
-
-$("keyButton").addEventListener("click", () => {
-  if (!keyGenerated) {
-    accessKey = makeRandomKey();
-    keyGenerated = true;
-    $("keyDisplay").textContent = "ACCESS KEY: " + accessKey;
-    $("keyDisplay").classList.remove("hidden");
-
-    printLine("Access key generated: " + accessKey, "success");
-    printLine("Next command: run", "muted");
-  }
-
-  playSound(true);
-});
-
-window.setTimeout(() => {
-  $("loading").classList.add("hidden");
-  $("app").classList.remove("hidden");
-  drawCommands();
-}, 2200);
-</script>
-
+<div id="toast" class="toast"></div>
 </body>
 </html>
