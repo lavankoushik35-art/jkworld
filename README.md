@@ -1,20 +1,23 @@
+
 # ⚡ JKWORLD
 
-**Premium Command Coding Environment**
+### Premium Command Coding Environment
 
-Welcome to JKWORLD — a futuristic, terminal-style command simulator.
+**THIS SITE MADE BY TEAM LVN**
 
-## 🚀 Features
+JKWORLD is a futuristic browser-based command simulator built using HTML, CSS, and JavaScript.
+
+## Features
 - Premium dark interface
 - Animated loading screen
-- Eight predefined commands
-- Random access-key generation demo
-- Green activation status
-- Sound effects and animations
-- Mobile-friendly design
+- Neon green and cyan styling
+- Eight commands in sequence
+- Random 10-digit key followed by three letters
+- Green activation messages
+- Synthesized sound effects
+- Mobile responsive layout
 
-## 💻 Commands
-
+## Commands
 1. `pkg install python`
 2. `apt update`
 3. `apt upgrade`
@@ -24,10 +27,18 @@ Welcome to JKWORLD — a futuristic, terminal-style command simulator.
 7. `/help`
 8. `/ctn`
 
-## 👑 Credits
+## Files
+- `index.html` — website structure
+- `style.css` — styling and animations
+- `script.js` — command simulator
+- `README.md` — documentation
 
-**THIS SITE MADE BY TEAM LVN**
+## GitHub Pages
+Upload all files to the same folder, then go to **Settings → Pages** and select your branch and root folder.
 
-## ⚠️ Disclaimer
+## Disclaimer
+Commands and key generation are simulated in the browser. No actual shell commands are executed and no software is installed.
 
-JKWORLD simulates command responses in a browser. It does not execute real terminal commands or install software on your device.
+---
+Made by Team LVN
+
